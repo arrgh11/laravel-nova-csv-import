@@ -1,5 +1,5 @@
 {
-    "name": "simonhamp/laravel-nova-csv-import",
+    "name": "arrgh11/laravel-nova-csv-import",
     "description": "A fully-fledged CSV import tool for Laravel Nova.",
     "keywords": [
         "laravel",
@@ -12,13 +12,13 @@
     },
     "autoload": {
         "psr-4": {
-            "SimonHamp\\LaravelNovaCsvImport\\": "src/"
+            "Arrgh11\\LaravelNovaCsvImport\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "SimonHamp\\LaravelNovaCsvImport\\ToolServiceProvider"
+                "Arrgh11\\LaravelNovaCsvImport\\ToolServiceProvider"
             ]
         }
     },
