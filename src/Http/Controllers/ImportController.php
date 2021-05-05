@@ -1,13 +1,13 @@
 <?php
 
-namespace SimonHamp\LaravelNovaCsvImport\Http\Controllers;
+namespace Arrgh11\LaravelNovaCsvImport\Http\Controllers;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
 use Laravel\Nova\Rules\Relatable;
 use Laravel\Nova\Actions\ActionResource;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use SimonHamp\LaravelNovaCsvImport\Importer;
+use Arrgh11\LaravelNovaCsvImport\Importer;
 use Illuminate\Validation\ValidationException;
 use Laravel\Nova\Fields\Field;
 
@@ -36,7 +36,7 @@ class ImportController
 
         $sample = $import->take(10)->all();
 
-        $resources = $this->getAvailableResourcesForImport($request); 
+        $resources = $this->getAvailableResourcesForImport($request);
 
         $fields = $resources->mapWithKeys(function ($resource) use ($request) {
             return $this->getAvailableFieldsForImport($resource, $request);
@@ -66,7 +66,7 @@ class ImportController
                         'attribute' => $field->attribute
                     ];
                 });
-        
+
        return [$novaResource->uriKey() => $fields];
     }
 
@@ -82,9 +82,9 @@ class ImportController
                     if (!isset($resource::$model)) {
                         return false;
                     }
-                    
+
                     $resourceReflection = (new \ReflectionClass((string) $resource));
-                    
+
                     if ($resourceReflection->hasMethod('canImportResource')) {
                         return $resource::canImportResource($request);
                     }
@@ -106,6 +106,7 @@ class ImportController
 
         $resource = Nova::resourceInstanceForKey($resource_name);
         $attribute_map = $request->input('mappings');
+        $upsert = $request->input('upsert');
         $attributes = $resource->creationFields($request)->pluck('attribute');
         $rules = $this->extractValidationRules($request, $resource)->toArray();
         $model_class = get_class($resource->resource);
@@ -116,6 +117,7 @@ class ImportController
             ->setAttributeMap($attribute_map)
             ->setRules($rules)
             ->setModelClass($model_class)
+            ->setUpsert($upsert)
             ->import($this->getFilePath($file), null);
 
         if (! $this->importer->failures()->isEmpty() || ! $this->importer->errors()->isEmpty()) {

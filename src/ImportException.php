@@ -1,6 +1,6 @@
 <?php
 
-namespace SimonHamp\LaravelNovaCsvImport;
+namespace Arrgh11\LaravelNovaCsvImport;
 
 class ImportException extends \Exception
 {

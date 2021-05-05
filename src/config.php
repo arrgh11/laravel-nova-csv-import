@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'importer' => SimonHamp\LaravelNovaCsvImport\Importer::class,
+    'importer' => Arrgh11\LaravelNovaCsvImport\Importer::class,
 ];

@@ -1,12 +1,12 @@
 <?php
 
-namespace SimonHamp\LaravelNovaCsvImport;
+namespace Arrgh11\LaravelNovaCsvImport;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use SimonHamp\LaravelNovaCsvImport\Http\Middleware\Authorize;
+use Arrgh11\LaravelNovaCsvImport\Http\Middleware\Authorize;
 
 class ToolServiceProvider extends ServiceProvider
 {

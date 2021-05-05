@@ -1,9 +1,9 @@
 <?php
 
-namespace SimonHamp\LaravelNovaCsvImport\Http\Middleware;
+namespace Arrgh11\LaravelNovaCsvImport\Http\Middleware;
 
 use Laravel\Nova\Nova;
-use SimonHamp\LaravelNovaCsvImport\LaravelNovaCsvImport;
+use Arrgh11\LaravelNovaCsvImport\LaravelNovaCsvImport;
 
 class Authorize
 {

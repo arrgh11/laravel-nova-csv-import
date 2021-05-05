@@ -1,12 +1,12 @@
 <?php
 
-namespace SimonHamp\LaravelNovaCsvImport\Http\Controllers;
+namespace Arrgh11\LaravelNovaCsvImport\Http\Controllers;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\Importable;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use SimonHamp\LaravelNovaCsvImport\Importer;
+use Arrgh11\LaravelNovaCsvImport\Importer;
 
 class UploadController
 {
@@ -22,7 +22,7 @@ class UploadController
         $extension = $file->getClientOriginalExtension();
 
         try {
-            (new Importer)->toCollection($file, null);
+            (new Importer)->toCollection($file);
         } catch (\Exception $e) {
             return response()->json(['result' => 'error', 'message' => 'Sorry, we could not import that file'], 422);
         }

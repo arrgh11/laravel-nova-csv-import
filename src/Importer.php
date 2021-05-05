@@ -1,6 +1,6 @@
 <?php
 
-namespace SimonHamp\LaravelNovaCsvImport;
+namespace Arrgh11\LaravelNovaCsvImport;
 
 use Laravel\Nova\Resource;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -13,17 +13,19 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Concerns\RegistersEventListeners
+use Maatwebsite\Excel\Concerns\WithUpserts;
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
-class Importer implements ToModel, WithValidation, WithHeadingRow, WithBatchInserts, WithChunkReading, SkipsOnFailure, SkipsOnError, RegistersEventListeners
+class Importer implements ToModel, WithValidation, WithHeadingRow, WithBatchInserts, WithChunkReading, SkipsOnFailure, SkipsOnError, WithUpserts
 {
-    use Importable, SkipsFailures, SkipsErrors;
+    use Importable, SkipsFailures, SkipsErrors, RegistersEventListeners;
 
     /** @var Resource */
     protected $resource;
     protected $attributes;
     protected $attribute_map;
     protected $rules;
+    protected $upsert = null;
     protected $model_class;
 
     public function model(array $row)
@@ -34,6 +36,18 @@ class Importer implements ToModel, WithValidation, WithHeadingRow, WithBatchInse
         );
 
         return $model;
+    }
+
+    /**
+     * @return string|array
+     */
+    public function uniqueBy()
+    {
+        if (empty($this->upsert)) {
+            return null;
+        }
+
+        return $this->upsert;
     }
 
     public function rules(): array
@@ -122,6 +136,13 @@ class Importer implements ToModel, WithValidation, WithHeadingRow, WithBatchInse
     public function setResource($resource)
     {
         $this->resource = $resource;
+
+        return $this;
+    }
+
+    public function setUpsert($column)
+    {
+        $this->upsert = $column;
 
         return $this;
     }

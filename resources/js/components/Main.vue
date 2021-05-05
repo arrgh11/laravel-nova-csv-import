@@ -43,6 +43,7 @@ export default {
                     self.$router.push({name: 'csv-import-preview', params: {file: response.data.file}})
                 })
                 .catch(function(e){
+                    console.log('here');
                     self.$toasted.show(e.response.data.message, {type: "error"});
                 });
         }

@@ -1,5 +1,5 @@
 <?php
-namespace SimonHamp\LaravelNovaCsvImport;
+namespace Arrgh11\LaravelNovaCsvImport;
 
 use Illuminate\Support\Arr;
 use Laravel\Nova\Http\Requests\NovaRequest;

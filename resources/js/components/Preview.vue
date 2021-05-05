@@ -22,6 +22,15 @@
                         <option v-for="(label, index) in resources" :value="index">{{ label }}</option>
                     </select>
                 </div>
+
+                <h2 class="py-4">Unique By</h2>
+                <p class="pb-4">Choose which resource column must be unique:</p>
+                <div>
+                    <select name="resource" class="block form-control form-select" v-model="upsert">
+                        <option value="">- No unique columns -</option>
+                        <option v-for="field in fields[resource]" :value="field.attribute">{{ field.name }}</option>
+                    </select>
+                </div>
             </div>
 
             <table class="table w-full">
@@ -79,6 +88,7 @@ export default {
             resources: [],
             fields: [],
             resource: '',
+            upsert: '',
             mappings: {},
         };
     },
@@ -128,6 +138,7 @@ export default {
             button.setAttribute("disabled", "disabled");
 
             let data = {
+                upsert: this.upsert,
                 resource: this.resource,
                 mappings: this.mappings
             };
@@ -142,6 +153,7 @@ export default {
                         button.innerHTML = 'Import &rightarrow;';
                         button.removeAttribute("disabled");
                         self.$toasted.show('There were problems importing some of your data', {type: "error"});
+                        self.$toasted.show(response.data.result, {type: "error"});
                     }
                 });
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace SimonHamp\LaravelNovaCsvImport;
+namespace Arrgh11\LaravelNovaCsvImport;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
